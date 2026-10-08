@@ -1,0 +1,18 @@
+export const QK = {
+  cats: ['cats'],
+  cat: id => ['cat', id],
+  pedigree: id => ['pedigree', id],
+  kittens: ['kittens'],
+  kitten: id => ['kitten', id],
+  litters: ['litters'],
+  gallery: ['gallery'],
+  products: ['products'],
+  product: id => ['product', id],
+  orders: ['orders'],
+  articles: ['articles'],
+  article: id => ['article', id],
+  faqs: ['faqs'],
+  reviews: ['reviews'],
+  applications: ['applications'],
+  me: ['me'],
+};

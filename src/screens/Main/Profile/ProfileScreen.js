@@ -1,11 +1,10 @@
 import React, { useMemo, useState } from 'react';
-import { Pressable, StatusBar, StyleSheet, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { RADIUS, softShadow } from '../../../globalStyle/Theme';
 import Sizer from '../../../helpers/Sizer';
 import { Typography } from '../../../atomComponents';
-import { Btn, Modal, Screen } from '../../../components';
+import { Btn, HomeHeader, Modal, Screen } from '../../../components';
 import { useColors } from '../../../hooks/useTheme';
 import { onLogoutSuccess } from '../../../query/partials/responseManager';
 import { selectUser } from '../../../redux/slices/appSlice';
@@ -31,7 +30,6 @@ const TILES = [
 /** Ported from Project/src/components/cr/profile.tsx — ProfileScreen. */
 export default function ProfileScreen({ navigation }) {
   const colors = useColors();
-  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const s = useMemo(() => makeStyles(colors), [colors]);
@@ -42,8 +40,7 @@ export default function ProfileScreen({ navigation }) {
 
   return (
     <View style={s.root}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.navy} />
-      <View style={[s.header, { paddingTop: Math.max(insets.top, Sizer.vSize(20)) + Sizer.vSize(8) }]}>
+      <HomeHeader>
         <View style={styles.identity}>
           <View style={[styles.avatar, { backgroundColor: colors.copper }]}>
             <Typography variant="displayMd" color={colors.navy}>
@@ -72,7 +69,7 @@ export default function ProfileScreen({ navigation }) {
             Create an account
           </Typography>
         ) : null}
-      </View>
+      </HomeHeader>
 
       <Screen padded={false} tabPad>
         <View style={styles.grid}>
@@ -112,11 +109,6 @@ export default function ProfileScreen({ navigation }) {
 const makeStyles = colors =>
   StyleSheet.create({
     root: { flex: 1, backgroundColor: colors.background },
-    header: {
-      backgroundColor: colors.navy,
-      paddingHorizontal: Sizer.hSize(20),
-      paddingBottom: Sizer.vSize(24),
-    },
     tile: {
       width: '48%',
       minHeight: Sizer.vSize(88),

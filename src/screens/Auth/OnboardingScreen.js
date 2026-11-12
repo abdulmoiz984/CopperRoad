@@ -24,7 +24,7 @@ const SLIDES = [
     image: IMAGES.kiki,
     eyebrow: 'MEET OUR MAINE COONS',
     title: 'The Heart Of Copper Road',
-    text: 'All of our Queens and Kings are purebred Maine Coons, each with a certified 5-generation pedigree, proudly registered with TICA (The International Cat Association).',
+    text: 'All of our Queens and Kings are purebred Maine Coons from carefully selected bloodlines, each with a documented 5-generation pedigree and registered with TICA and CFF.',
   },
   {
     image: IMAGES.happyKittenInHands,

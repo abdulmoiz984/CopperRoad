@@ -21,7 +21,11 @@ export default function ApplyDoneScreen({ navigation, route }) {
       <Typography size={36} font="displaySemiBold" textAlign="center" mT={16}>
         Thank you! We'll be in touch soon.
       </Typography>
-      <Typography variant="bodySm" textAlign="center" mT={8}>
+      <Typography variant="bodySm" textAlign="center" lineHeight={21} mT={8}>
+        We read every application personally. If a Copper Road kitten looks like the right fit, we'll reach out by your
+        preferred contact method to talk things through.
+      </Typography>
+      <Typography variant="bodySm" textAlign="center" mT={12}>
         Application reference
       </Typography>
       <Typography size={15} font="bodySemiBold" color="copper">

@@ -13,7 +13,13 @@ import { cats, kittensOf } from '../../../lib/copper-data';
 import { selectFavCats, toggleFavCat } from '../../../redux/slices/appSlice';
 import { shareText } from '../../../utils';
 
-const ROLE_LABEL = { memorial: 'IN LOVING MEMORY', queen: 'QUEEN', king: 'KING', family: 'FAMILY' };
+const ROLE_LABEL = {
+  memorial: 'IN LOVING MEMORY',
+  queen: 'QUEEN',
+  king: 'KING',
+  retiring: 'RETIRING \u2014 LOOKING FOR A FOREVER HOME',
+  family: 'FAMILY',
+};
 
 /** Ported from Project/src/components/cr/cats.tsx — CatProfile. */
 export default function CatProfileScreen({ navigation, route }) {
@@ -34,9 +40,15 @@ export default function CatProfileScreen({ navigation, route }) {
   const babies = kittensOf(cat.id);
 
   const rows = [
+    ['Status', cat.status ?? '\u2014'],
     ['Coat / Color', cat.coat],
     ['Sex', cat.sex],
-    ['Registry', 'TICA'],
+    ...(cat.eyes ? [['Eye Color', cat.eyes]] : []),
+    ...(cat.origin ? [['Origin', cat.origin]] : []),
+    ...(cat.lineage ? [['Lineage', cat.lineage]] : []),
+    ...(cat.personality ? [['Personality', cat.personality]] : []),
+    ...(cat.litterStatus ? [['Litter', cat.litterStatus]] : []),
+    ['Registry', 'TICA & CFF'],
     ['Pedigree', cat.role === 'memorial' || cat.role === 'family' ? cat.pedigreeNote : '5-generation'],
     ['Health Testing', cat.health],
   ];
@@ -100,6 +112,16 @@ export default function CatProfileScreen({ navigation, route }) {
           <Typography size={15} lineHeight={23} mT={12}>
             {cat.bio}
           </Typography>
+
+          {cat.quote ? (
+            <View style={[s.quote, { borderLeftColor: colors.copper }]}>
+              <Typography size={16} font="displayItalic" lineHeight={24}>
+                {'\u201C'}
+                {cat.quote}
+                {'\u201D'}
+              </Typography>
+            </View>
+          ) : null}
 
           <View style={s.table}>
             {rows.map(([k, v], i) => (
@@ -195,6 +217,12 @@ const makeStyles = colors =>
       backgroundColor: colors.glass,
       paddingHorizontal: Sizer.hSize(12),
       paddingVertical: Sizer.vSize(8),
+    },
+    quote: {
+      marginTop: Sizer.vSize(16),
+      borderLeftWidth: 3,
+      paddingLeft: Sizer.hSize(12),
+      paddingVertical: Sizer.vSize(2),
     },
     table: {
       marginTop: Sizer.vSize(16),

@@ -20,7 +20,7 @@ const ITEMS = [
 export default function JourneyScreen({ navigation }) {
   const colors = useColors();
   const s = useMemo(() => makeStyles(colors), [colors]);
-  const kitten = kittenById('seraphina');
+  const kitten = kittenById('olive-2');
 
   return (
     <View style={s.root}>
@@ -29,8 +29,8 @@ export default function JourneyScreen({ navigation }) {
         <View style={s.card}>
           <Typography variant="displayMd">Your place is being held with care.</Typography>
           <Typography variant="bodySm" lineHeight={21} mT={8}>
-            After approval, this screen shows your reserved kitten, deposit, go-home date, and a checklist. Here's a
-            preview of how that looks.
+            A $300 deposit reserves your place on our waiting list and is applied toward the purchase price of your
+            kitten. Kittens go home between 9 and 12 weeks of age. Here's a preview of how that looks.
           </Typography>
         </View>
 

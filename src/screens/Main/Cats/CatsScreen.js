@@ -1,38 +1,29 @@
 import React, { useMemo, useState } from 'react';
-import { Pressable, ScrollView, StatusBar, StyleSheet, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { RADIUS, softShadow } from '../../../globalStyle/Theme';
 import Sizer from '../../../helpers/Sizer';
 import { Typography } from '../../../atomComponents';
-import { ApplyFab, Badge, Chip, Eyebrow, Photo, Screen, statusTone } from '../../../components';
+import { ApplyFab, Badge, Chip, Eyebrow, HomeHeader, Photo, Screen, statusTone } from '../../../components';
 import { useColors } from '../../../hooks/useTheme';
-import { cats, kittens } from '../../../lib/copper-data';
+import { catSegments, catsInSegment, kittens } from '../../../lib/copper-data';
 
-const SEGMENTS = ['Kittens', 'Queens', 'Kings', 'Family'];
+const SEGMENTS = catSegments.map(seg => seg.key);
 const STATUSES = ['All', 'Available', 'Reserved', 'Sold'];
 
 /** Ported from Project/src/components/cr/cats.tsx — CatsScreen. */
 export default function CatsScreen({ navigation }) {
   const colors = useColors();
-  const insets = useSafeAreaInsets();
   const s = useMemo(() => makeStyles(colors), [colors]);
 
   const [segment, setSegment] = useState('Kittens');
   const [status, setStatus] = useState('All');
 
   const list = kittens.filter(k => status === 'All' || k.status === status);
-  const parents = cats.filter(c =>
-    segment === 'Queens'
-      ? c.role === 'queen'
-      : segment === 'Kings'
-        ? c.role === 'king'
-        : c.role === 'family' || c.role === 'memorial',
-  );
+  const parents = catsInSegment(segment);
 
   return (
     <View style={s.root}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.navy} />
-      <View style={[s.header, { paddingTop: Math.max(insets.top, Sizer.vSize(16)) + Sizer.vSize(8) }]}>
+      <HomeHeader>
         <Eyebrow light>THE COPPER ROAD FAMILY</Eyebrow>
         <Typography size={36} font="displaySemiBold" color="#FFFFFF" mT={2}>
           Our Cats
@@ -46,7 +37,7 @@ export default function CatsScreen({ navigation }) {
         >
           View Breeding Plan
         </Typography>
-      </View>
+      </HomeHeader>
 
       <Screen padded={false} tabPad>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.chips}>
@@ -107,8 +98,13 @@ export default function CatsScreen({ navigation }) {
                 <Photo source={c.photo} style={styles.gridPhoto} />
                 <View style={styles.gridBody}>
                   <Typography variant="displaySm">{c.short}</Typography>
+                  {c.status ? (
+                    <Typography size={11} font="bodySemiBold" color="copper" mT={2}>
+                      {c.status}
+                    </Typography>
+                  ) : null}
                   <Typography size={11} color="mutedForeground" mT={4}>
-                    {c.tagline}
+                    {c.coat}
                   </Typography>
                 </View>
               </Pressable>
@@ -126,11 +122,6 @@ export default function CatsScreen({ navigation }) {
 const makeStyles = colors =>
   StyleSheet.create({
     root: { flex: 1, backgroundColor: colors.background },
-    header: {
-      backgroundColor: colors.navy,
-      paddingHorizontal: Sizer.hSize(20),
-      paddingBottom: Sizer.vSize(20),
-    },
     listCard: {
       flexDirection: 'row',
       gap: Sizer.hSize(12),

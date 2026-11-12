@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react';
-import { Pressable, ScrollView, StatusBar, StyleSheet, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { RADIUS, softShadow } from '../../../globalStyle/Theme';
 import Sizer from '../../../helpers/Sizer';
 import Icon from '../../../helpers/Icon';
@@ -11,6 +10,7 @@ import {
   Chip,
   Field,
   HeartBtn,
+  HomeHeader,
   Photo,
   Screen,
   SelectField,
@@ -28,7 +28,6 @@ const SORTS = ['Featured', 'Price Low–High', 'High–Low', 'Newest'];
 /** Ported from Project/src/components/cr/shop.tsx — ShopScreen. */
 export default function ShopScreen({ navigation }) {
   const colors = useColors();
-  const insets = useSafeAreaInsets();
   const dispatch = useDispatch();
   const wishlist = useSelector(selectWishlist);
   const s = useMemo(() => makeStyles(colors), [colors]);
@@ -61,8 +60,7 @@ export default function ShopScreen({ navigation }) {
 
   return (
     <View style={s.root}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.navy} />
-      <View style={[s.header, { paddingTop: Math.max(insets.top, Sizer.vSize(16)) + Sizer.vSize(8) }]}>
+      <HomeHeader>
         <Typography size={11} font="bodySemiBold" color="copper" letterSpacing={1.98} textTransform="uppercase">
           Copper Road Wear &amp; Accents
         </Typography>
@@ -73,7 +71,7 @@ export default function ShopScreen({ navigation }) {
           All proceeds go directly back into our veterinary health testing program, certified organic nutrition, and
           high-quality play structures for our kittens.
         </Typography>
-      </View>
+      </HomeHeader>
 
       <Screen padded={false} tabPad>
         <View style={styles.body}>
@@ -183,11 +181,6 @@ export default function ShopScreen({ navigation }) {
 const makeStyles = colors =>
   StyleSheet.create({
     root: { flex: 1, backgroundColor: colors.background },
-    header: {
-      backgroundColor: colors.navy,
-      paddingHorizontal: Sizer.hSize(20),
-      paddingBottom: Sizer.vSize(20),
-    },
     filterBtn: {
       width: Sizer.hSize(44),
       height: Sizer.vSize(36),

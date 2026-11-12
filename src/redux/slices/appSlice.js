@@ -43,6 +43,7 @@ const seedApplication = {
   data: {
     firstName: 'Jordan',
     lastName: 'Hale',
+    fullName: 'Jordan Hale',
     kitten: 'Any',
     timeline: '1–3 months',
     why: 'We want a gentle giant who will grow up with our family.',
@@ -51,7 +52,7 @@ const seedApplication = {
     { label: 'Submitted', detail: 'We received your application.', done: true },
     { label: 'Under Review', detail: 'Tami is reading through your home details.', done: true },
     { label: 'Approved', detail: "We'll write when a kitten matches.", done: false },
-    { label: 'Waitlisted', detail: 'A deposit holds your place when you are ready.', done: false },
+    { label: 'Waitlisted', detail: 'A $300 deposit holds your place when you are ready.', done: false },
   ],
 };
 
@@ -191,7 +192,7 @@ const appSlice = createSlice({
             { label: 'Submitted', detail: 'We have your application.', done: true },
             { label: 'Under Review', detail: "We'll be in touch soon.", done: false },
             { label: 'Approved', detail: 'A match, when the timing is right.', done: false },
-            { label: 'Waitlisted', detail: 'A deposit holds your place.', done: false },
+            { label: 'Waitlisted', detail: 'A $300 deposit holds your place.', done: false },
           ],
         },
         ...state.applications,

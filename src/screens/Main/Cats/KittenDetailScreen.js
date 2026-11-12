@@ -86,16 +86,23 @@ export default function KittenDetailScreen({ navigation, route }) {
               <Typography variant="tiny">Date of birth</Typography>
               <Typography size={15}>{kitten.dob}</Typography>
             </View>
-            <View style={styles.tableCell}>
-              <Typography variant="tiny">Health guarantee</Typography>
+            <View style={[styles.tableCell, { borderBottomWidth: 1, borderBottomColor: colors.secondary }]}>
+              <Typography variant="tiny">Goes home</Typography>
               <Typography size={15} lineHeight={22}>
-                Parents screened for HCM, SMA, and PK Def. Records travel with your kitten.
+                Between 9 and 12 weeks of age, with first vaccinations, multiple dewormings, and a complete health
+                examination.
+              </Typography>
+            </View>
+            <View style={styles.tableCell}>
+              <Typography variant="tiny">Health</Typography>
+              <Typography size={15} lineHeight={22}>
+                All of our breeding cats undergo health screening and DNA testing. Records travel with your kitten.
               </Typography>
             </View>
           </View>
 
           <Typography variant="displayMd" mT={20}>
-            Parents
+            {parents.length > 1 ? 'Parents' : 'Mother'}
           </Typography>
           <View style={styles.parentRow}>
             {parents.map(p => (

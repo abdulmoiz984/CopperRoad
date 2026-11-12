@@ -5,10 +5,7 @@ import Sizer from '../../../helpers/Sizer';
 import { Typography } from '../../../atomComponents';
 import { BackBar, Screen, TextField } from '../../../components';
 import { useColors } from '../../../hooks/useTheme';
-import { cats, kittenById } from '../../../lib/copper-data';
-
-/** The web searches this fixed set of kittens. */
-const KITTEN_IDS = ['aurelius', 'seraphina', 'caspian', 'mirabelle', 'wren'];
+import { cats, kittens } from '../../../lib/copper-data';
 
 /** Ported from Project/src/components/cr/profile.tsx — SearchScreen. */
 export default function SearchScreen({ navigation }) {
@@ -18,12 +15,10 @@ export default function SearchScreen({ navigation }) {
   const query = q.trim().toLowerCase();
 
   const kittenHits = query
-    ? KITTEN_IDS.map(id => kittenById(id))
-        .filter(Boolean)
-        .filter(k => `${k.name} ${k.coat} ${k.sex}`.toLowerCase().includes(query))
+    ? kittens.filter(k => `${k.name} ${k.coat} ${k.sex}`.toLowerCase().includes(query))
     : [];
   const catHits = query
-    ? cats.filter(c => `${c.name} ${c.tagline} ${c.coat}`.toLowerCase().includes(query))
+    ? cats.filter(c => `${c.name} ${c.tagline} ${c.coat} ${c.status ?? ''}`.toLowerCase().includes(query))
     : [];
 
   return (

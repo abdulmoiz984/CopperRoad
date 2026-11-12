@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
+import { KeyboardAvoidingView, ScrollView, StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { RADIUS } from '../../../globalStyle/Theme';
@@ -7,6 +7,7 @@ import Sizer from '../../../helpers/Sizer';
 import { Typography } from '../../../atomComponents';
 import { BackBar, Btn, TextField } from '../../../components';
 import { useColors } from '../../../hooks/useTheme';
+import { useKeyboardVisible } from '../../../hooks/useKeyboard';
 import { useCustomMutation } from '../../../query';
 import { sendMessage as apiSend } from '../../../api/contentService';
 import { receiveReply, selectMessages, sendMessage } from '../../../redux/slices/appSlice';
@@ -18,6 +19,7 @@ export default function MessagesScreen() {
   const dispatch = useDispatch();
   const messages = useSelector(selectMessages);
   const s = useMemo(() => makeStyles(colors), [colors]);
+  const keyboardUp = useKeyboardVisible();
   const scroller = useRef(null);
   const replyTimer = useRef(null);
 
@@ -46,7 +48,9 @@ export default function MessagesScreen() {
   return (
     <View style={s.root}>
       <BackBar title="Messages" subtitle="Copper Road" />
-      <KeyboardAvoidingView style={styles.flex} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+      {/* Edge-to-edge stops Android resizing the window for the IME, so the
+          composer has to be lifted on both platforms, not just iOS. */}
+      <KeyboardAvoidingView style={styles.flex} behavior="padding">
         <ScrollView
           ref={scroller}
           style={styles.flex}
@@ -80,7 +84,7 @@ export default function MessagesScreen() {
         <View
           style={[
             s.composer,
-            { paddingBottom: Math.max(insets.bottom, Sizer.vSize(12)) },
+            { paddingBottom: keyboardUp ? Sizer.vSize(12) : Math.max(insets.bottom, Sizer.vSize(12)) },
           ]}
         >
           <View style={styles.flex}>

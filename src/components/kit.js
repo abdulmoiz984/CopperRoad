@@ -4,7 +4,9 @@ import {
   Easing,
   FlatList,
   Image,
+  KeyboardAvoidingView,
   Modal as RNModal,
+  Platform,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -77,24 +79,36 @@ export function Pop({ children, style }) {
 export function Screen({ children, padded = true, tabPad = false, topInset = false, contentStyle, ...props }) {
   const insets = useSafeAreaInsets();
   return (
-    <ScrollView
-      style={styles.flex}
-      showsVerticalScrollIndicator={false}
-      keyboardShouldPersistTaps="handled"
-      // Insets the content when the keyboard opens so a focused field near the
-      // bottom of a long form stays reachable. iOS-only prop; Android gets the
-      // same behaviour from `windowSoftInputMode="adjustResize"`.
-      automaticallyAdjustKeyboardInsets
-      contentContainerStyle={[
-        padded && { paddingHorizontal: Sizer.hSize(SPACING.screenPx) },
-        topInset && { paddingTop: Math.max(insets.top, Sizer.vSize(12)) },
-        { paddingBottom: Sizer.vSize(tabPad ? TABBAR_HEIGHT + 24 : 28) + insets.bottom },
-        contentStyle,
-      ]}
-      {...props}
-    >
-      {children}
-    </ScrollView>
+    // The app runs edge-to-edge (`edgeToEdgeEnabled=true`, target SDK 36), and
+    // under edge-to-edge Android stops honouring `windowSoftInputMode`:
+    // the window no longer shrinks when the IME opens, so a field at the
+    // bottom of a form ends up behind the keyboard. Shrinking the scroll view
+    // ourselves restores it — and once its height changes, Android's own
+    // ScrollView scrolls the focused child back on screen.
+    //
+    // iOS needs none of that: `automaticallyAdjustKeyboardInsets` below both
+    // insets the content and scrolls to the focused field, so the avoiding
+    // view stays disabled there rather than paying the inset twice.
+    <KeyboardAvoidingView style={styles.flex} behavior="padding" enabled={Platform.OS === 'android'}>
+      <ScrollView
+        style={styles.flex}
+        showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
+        // Dragging the keyboard away is an iOS gesture; Android keeps the
+        // default so scrolling a long form does not close it mid-answer.
+        keyboardDismissMode={Platform.OS === 'ios' ? 'interactive' : 'none'}
+        automaticallyAdjustKeyboardInsets
+        contentContainerStyle={[
+          padded && { paddingHorizontal: Sizer.hSize(SPACING.screenPx) },
+          topInset && { paddingTop: Math.max(insets.top, Sizer.vSize(12)) },
+          { paddingBottom: Sizer.vSize(tabPad ? TABBAR_HEIGHT + 24 : 28) + insets.bottom },
+          contentStyle,
+        ]}
+        {...props}
+      >
+        {children}
+      </ScrollView>
+    </KeyboardAvoidingView>
   );
 }
 

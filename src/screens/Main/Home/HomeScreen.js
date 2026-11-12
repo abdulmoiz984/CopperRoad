@@ -38,8 +38,9 @@ import { IMAGES } from '../../../assets/images';
 import { addReview, selectFavKittens, selectReviews, toggleFavKitten } from '../../../redux/slices/appSlice';
 import { toast } from '../../../utils';
 
-const QUEEN_IDS = ['aria', 'olive', 'kiki', 'chimera'];
-const KING_IDS = ['roman', 'royal', 'butter', 'armani'];
+const QUEEN_IDS = ['olive', 'kiki', 'jojo', 'aria', 'chimera', 'essmay'];
+const KING_IDS = ['royal', 'roman', 'armani', 'atlas'];
+const RETIRING_IDS = ['iris', 'poppy'];
 
 /** Ported from Project/src/components/cr/home.tsx — HomeScreen. */
 export default function HomeScreen({ navigation }) {
@@ -60,6 +61,7 @@ export default function HomeScreen({ navigation }) {
 
   const queens = cats.filter(c => QUEEN_IDS.includes(c.id));
   const kings = cats.filter(c => KING_IDS.includes(c.id));
+  const retiring = cats.filter(c => RETIRING_IDS.includes(c.id));
   const review = reviews[quoteIndex % reviews.length];
 
   const goTab = tab => navigation.navigate(tab);
@@ -157,6 +159,12 @@ export default function HomeScreen({ navigation }) {
         {/* Parents */}
         <CatRow title="Meet The Queens Of Copper Road" list={queens} navigation={navigation} colors={colors} />
         <CatRow title="Meet The Kings Of Copper Road" list={kings} navigation={navigation} colors={colors} />
+        <CatRow
+          title="Retiring Queens Looking For Forever Homes"
+          list={retiring}
+          navigation={navigation}
+          colors={colors}
+        />
 
         {/* Family */}
         <View style={styles.section}>

@@ -1,10 +1,9 @@
 import React, { useMemo, useState } from 'react';
-import { Pressable, ScrollView, StatusBar, StyleSheet, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { OVERLAY, RADIUS, softShadow } from '../../../globalStyle/Theme';
 import Sizer from '../../../helpers/Sizer';
 import { Typography } from '../../../atomComponents';
-import { Btn, Chip, Gradient, Photo, Screen, TextField } from '../../../components';
+import { Btn, Chip, Gradient, HomeHeader, Photo, Screen, TextField } from '../../../components';
 import { useColors } from '../../../hooks/useTheme';
 import { articleCategories, articles, videos } from '../../../lib/copper-data';
 
@@ -15,7 +14,6 @@ const shortLabel = c =>
 /** Ported from Project/src/components/cr/learn.tsx — LearnScreen. */
 export default function LearnScreen({ navigation }) {
   const colors = useColors();
-  const insets = useSafeAreaInsets();
   const s = useMemo(() => makeStyles(colors), [colors]);
 
   const [query, setQuery] = useState('');
@@ -27,15 +25,14 @@ export default function LearnScreen({ navigation }) {
 
   return (
     <View style={s.root}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.navy} />
-      <View style={[s.header, { paddingTop: Math.max(insets.top, Sizer.vSize(16)) + Sizer.vSize(8) }]}>
+      <HomeHeader>
         <Typography size={34} lineHeight={34} font="displaySemiBold" color="#FFFFFF">
           Essential Kitten &amp; Maine Coon Education
         </Typography>
         <Typography size={12} color="rgba(255,255,255,0.70)" mT={8}>
           Sample content for the client to review and approve before launch.
         </Typography>
-      </View>
+      </HomeHeader>
 
       <Screen padded={false} tabPad>
         <View style={styles.body}>
@@ -119,11 +116,6 @@ export default function LearnScreen({ navigation }) {
 const makeStyles = colors =>
   StyleSheet.create({
     root: { flex: 1, backgroundColor: colors.background },
-    header: {
-      backgroundColor: colors.navy,
-      paddingHorizontal: Sizer.hSize(20),
-      paddingBottom: Sizer.vSize(20),
-    },
     row: {
       flexDirection: 'row',
       gap: Sizer.hSize(12),

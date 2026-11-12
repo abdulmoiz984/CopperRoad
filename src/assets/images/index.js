@@ -8,6 +8,23 @@ export const IMAGES = {
   img20230206_091346: require('./20230206_091346.webp'),
   img20230809_103341Scaled: require('./20230809_103341-scaled.webp'),
   catProducts: require('./cat-products.jpg'),
+
+  // Cattery portraits supplied by the client in "Where Our Babies Begin".
+  // One photograph per cat, rotated upright and stripped of EXIF so both
+  // platforms draw them the same way round.
+  catAria: require('./cat-aria.jpg'),
+  catArmani: require('./cat-armani.jpg'),
+  catAtlas: require('./cat-atlas.jpg'),
+  catEssmay: require('./cat-essmay.jpg'),
+  catIris: require('./cat-iris.jpg'),
+  catJojo: require('./cat-jojo.jpg'),
+  catKiki: require('./cat-kiki.jpg'),
+  catOlive: require('./cat-olive.jpg'),
+  catPoppy: require('./cat-poppy.jpg'),
+  catRoman: require('./cat-roman.jpg'),
+  catRoyal: require('./cat-royal.jpg'),
+  catSqueaks: require('./cat-squeaks.jpg'),
+
   catteryInterior: require('./cattery-interior.jpg'),
   familyKitten: require('./family-kitten.jpg'),
   footerLogo: require('./footer-logo.png'),

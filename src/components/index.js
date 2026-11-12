@@ -22,7 +22,7 @@ export {
   Modal,
   Slider,
 } from './kit';
-export { BackBar, HomeHeader, TabBar, TABS, ApplyFab } from './chrome';
+export { BackBar, HomeHeader, AppMenu, MENU_GROUPS, TabBar, TABS, ApplyFab } from './chrome';
 export { Gradient } from './Gradient';
 export { Viewer } from './Viewer';
 export { SOCIAL_MARKS, InstagramMark, FacebookMark, XMark, LinkedInMark } from './SocialMarks';

@@ -8,10 +8,10 @@ import { BackBar, Btn, Field, Screen, SelectField, TextField } from '../../../co
 import { useColors } from '../../../hooks/useTheme';
 import { useCustomMutation } from '../../../query';
 import { sendContact } from '../../../api/contentService';
-import { CONTACT } from '../../../lib/copper-data';
+import { CONTACT, gettingToKnowYou, visitInfo } from '../../../lib/copper-data';
 import { toast } from '../../../utils';
 
-const SUBJECTS = ['Kitten Inquiry', 'Breeding Plan', 'Merchandise', 'Other'];
+const SUBJECTS = ['Kitten Inquiry', 'Waiting List', 'Retired Adult', 'Schedule A Visit', 'Merchandise', 'Other'];
 
 /** Ported from Project/src/components/cr/learn.tsx — ContactScreen. */
 export default function ContactScreen() {
@@ -55,6 +55,21 @@ export default function ContactScreen() {
           </View>
         ) : (
           <>
+            <View style={[s.card, styles.intro]}>
+              <Typography size={15} lineHeight={23}>
+                {gettingToKnowYou.intro}
+              </Typography>
+              <View style={styles.channelRow}>
+                {gettingToKnowYou.channels.map(channel => (
+                  <View key={channel} style={[styles.channel, { backgroundColor: colors.tonecopperBg }]}>
+                    <Typography size={12} font="bodySemiBold" color={colors.tonecopperFg}>
+                      {channel}
+                    </Typography>
+                  </View>
+                ))}
+              </View>
+            </View>
+
             <Field label="Name">
               <TextField value={form.name} onChangeText={v => set('name', v)} />
             </Field>
@@ -75,6 +90,12 @@ export default function ContactScreen() {
         )}
 
         <View style={[s.card, styles.spaced]}>
+          <Typography size={15} font="bodySemiBold" mB={4}>
+            Visit Copper Road
+          </Typography>
+          <Typography variant="bodySm" lineHeight={21} mB={8}>
+            {visitInfo.location} {visitInfo.appointment}
+          </Typography>
           <Typography size={14}>{CONTACT.address}</Typography>
           <Typography
             size={14}
@@ -126,6 +147,9 @@ const makeStyles = colors =>
   });
 
 const styles = StyleSheet.create({
+  intro: { marginBottom: Sizer.vSize(16) },
+  channelRow: { flexDirection: 'row', flexWrap: 'wrap', gap: Sizer.hSize(6), marginTop: Sizer.vSize(10) },
+  channel: { borderRadius: RADIUS.pill, paddingHorizontal: Sizer.hSize(10), paddingVertical: Sizer.vSize(4) },
   flex: { flex: 1 },
   body: { paddingHorizontal: Sizer.hSize(16) },
   spaced: { marginTop: Sizer.vSize(12) },

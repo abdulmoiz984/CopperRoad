@@ -7,7 +7,7 @@ import { useColors } from '../../../hooks/useTheme';
 import { CONTACT } from '../../../lib/copper-data';
 
 const TERMS = [
-  'Copper Road Maine Coon Cattery places kittens in indoor homes that will provide regular veterinary care. A non-refundable deposit reserves a kitten. Pet kittens are companions: spay or neuter is required between 6 and 8 months, declawing is not permitted, and limited registration paperwork follows proof of altering.',
+  'Copper Road Maine Coon Cattery places kittens in indoor homes that will provide regular veterinary care. A $300 deposit reserves a place on the waiting list and is applied toward the purchase price of your kitten. Kittens go home between 9 and 12 weeks of age and are not altered before leaving; we suggest spaying or neutering between 6 and 8 months, declawing is not permitted, and limited registration paperwork follows proof of altering.',
   'Merchandise may be exchanged for size within 30 days. Kitten placements are not shipping orders — we arrange pickup, a reasonable delivery, or a meet-up.',
   'This app is a client preview. Agreements here illustrate the experience and do not replace the written contract.',
 ];
